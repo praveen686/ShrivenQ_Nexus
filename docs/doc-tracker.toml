@@ -1,0 +1,156 @@
+# ShrivenQ Documentation Change Tracking Configuration
+
+[tracker]
+# Paths to monitor for changes
+watch_paths = ["docs", "src", "scripts", "config", "README.md", "Cargo.toml"]
+
+# File patterns to include in tracking
+include_patterns = [
+    "*.md",     # Markdown documentation
+    "*.rs",     # Rust source code
+    "*.toml",   # Configuration files
+    "*.sh",     # Shell scripts
+    "*.yml",    # YAML files
+    "*.yaml",   # YAML files
+]
+
+# File patterns to exclude from tracking
+exclude_patterns = [
+    "target/*",           # Cargo build artifacts
+    ".git/*",            # Git metadata
+    "*.tmp",             # Temporary files
+    "*.bak",             # Backup files
+    "docs/.metadata/*",   # Generated metadata
+    ".DS_Store",         # macOS metadata
+    "Thumbs.db",         # Windows metadata
+]
+
+# Reference types to track and validate
+reference_types = [
+    "DirectLink",        # Markdown links [text](path)
+    "CodeReference",     # Code file references `src/file.rs:123`
+    "ConfigValue",       # Configuration value references
+    "FunctionName",      # Function/struct references in docs
+    "PerformanceMetric", # Performance targets and measurements
+    "BuildScript",       # Build script references
+    "FeatureFlag",       # Cargo feature flag references
+]
+
+# Confidence scoring for automatic updates
+[propagation]
+# Confidence threshold for automatic updates (0.0-1.0)
+auto_apply_threshold = 0.85
+
+# Types of changes that always require human review
+require_human_review = [
+    "FileDeleted",
+    "FunctionSignatureChanged", 
+    "PerformanceMetricUpdated",
+    "ConfigValueChanged",
+    "FeatureFlagRemoved",
+]
+
+# Backup settings for automatic updates
+create_backups = true
+backup_directory = "docs/.backups"
+max_backups = 20
+backup_retention_days = 30
+
+# Update confidence scoring factors
+[propagation.confidence_factors]
+exact_match = 1.0              # Perfect text match
+similar_context = 0.8          # Similar surrounding context
+same_file_type = 0.7           # Same type of file
+cross_reference_valid = 0.9    # Cross-references validate
+manual_review_safe = 0.6       # Change is safe for manual review
+
+[validation]
+# Validation rules for documentation consistency
+rules = [
+    "all_links_valid",              # All markdown links resolve
+    "all_code_references_exist",    # All code references point to real files
+    "performance_metrics_consistent", # Performance targets are consistent
+    "function_signatures_match",     # Function docs match actual signatures
+    "config_values_documented",     # All config values are documented
+    "no_orphaned_files",            # No files unreferenced by others
+    "proper_heading_structure",     # Files have proper heading hierarchy
+    "no_broken_anchors",            # Fragment links (#section) are valid
+]
+
+# Issue severity levels
+error_on = [
+    "broken_links",         # Broken markdown links
+    "missing_files",        # Referenced files don't exist
+    "invalid_anchors",      # Fragment links to non-existent sections
+]
+
+warn_on = [
+    "stale_metrics",        # Performance metrics may be outdated
+    "outdated_examples",    # Code examples may be outdated
+    "orphaned_files",       # Files not referenced elsewhere
+    "long_files",           # Files that might be too long
+    "stub_files",           # Files that might be incomplete
+]
+
+info_on = [
+    "todo_markers",         # TODO/FIXME comments in docs
+    "missing_headings",     # Files without main headings
+    "inconsistent_style",   # Style inconsistencies
+]
+
+[metrics]
+# Documentation quality metrics to track
+track_metrics = [
+    "total_files",                 # Total number of documentation files
+    "total_references",            # Total number of references found
+    "broken_references",           # Number of broken references
+    "stale_content_percentage",    # Percentage of potentially stale content
+    "documentation_coverage",      # How much of the code is documented
+    "average_update_frequency",    # How often docs are updated
+    "reference_density",           # References per file
+    "cross_reference_ratio",       # Files that reference each other
+]
+
+# Reporting and output settings
+generate_reports = true
+report_format = "markdown"
+report_schedule = "on_validation"
+metrics_output_file = "docs/metrics/documentation-health.md"
+
+# Quality thresholds for reporting
+[metrics.thresholds]
+broken_reference_percentage = 5.0    # Alert if >5% references are broken
+stale_content_percentage = 20.0      # Alert if >20% content seems stale
+documentation_coverage = 80.0        # Target 80% documentation coverage
+orphaned_file_percentage = 10.0      # Alert if >10% files are orphaned
+
+[output]
+# Output formatting preferences
+use_colors = true                    # Use colored output in terminal
+verbose_by_default = false          # Default verbosity level
+show_progress = true                 # Show progress bars during operations
+include_suggestions = true          # Include fix suggestions in output
+
+# File output preferences
+save_intermediate_results = true     # Save intermediate processing results
+compress_large_graphs = true        # Compress large reference graphs
+include_metadata_in_output = true   # Include file metadata in graphs
+
+[advanced]
+# Advanced configuration options
+max_file_size_mb = 10               # Skip files larger than this
+max_references_per_file = 1000      # Limit references per file to prevent memory issues
+enable_caching = true               # Cache parsing results
+cache_expiry_hours = 24             # Cache expiry time
+parallel_processing = true          # Enable parallel processing where possible
+max_worker_threads = 4              # Maximum worker threads for parallel processing
+
+# Pattern matching settings
+case_sensitive_matching = false     # Case sensitivity for reference matching
+fuzzy_matching_enabled = true       # Enable fuzzy matching for similar references
+fuzzy_matching_threshold = 0.8      # Similarity threshold for fuzzy matching
+
+# Performance tuning
+batch_size = 100                    # Process files in batches
+memory_limit_mb = 512               # Memory limit for processing
+timeout_seconds = 300               # Timeout for long operations

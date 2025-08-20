@@ -1,0 +1,35 @@
+[build]
+rustflags = [
+    "-D", "warnings",
+    "-D", "rust-2018-idioms",
+    "-D", "missing-debug-implementations",
+    "-D", "unreachable-pub",
+    "-D", "unsafe-op-in-unsafe-fn",
+    "-D", "unused-qualifications",
+    "-D", "unused-results",
+    "-D", "unused-imports",
+    "-D", "unused-variables",
+    "-D", "dead-code",
+    "-D", "trivial-casts",
+    "-D", "trivial-numeric-casts",
+    "-D", "unused-extern-crates",
+    "-D", "variant-size-differences",
+    "-W", "missing-docs",
+    "-W", "clippy::pedantic",
+    "-W", "clippy::nursery",
+    "-W", "clippy::cargo",
+    "-A", "clippy::module-name-repetitions",
+    "-A", "clippy::must-use-candidate",
+    "-A", "clippy::missing-errors-doc",
+    "-A", "clippy::missing-panics-doc"
+]
+
+[target.'cfg(all())']
+rustflags = [
+    "-C", "opt-level=3",
+    "-C", "debug-assertions=yes",
+    "-C", "overflow-checks=yes",
+    "-C", "lto=off",
+    "-C", "panic=unwind",
+    "-C", "incremental=true"
+]

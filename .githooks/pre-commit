@@ -1,0 +1,60 @@
+#!/bin/bash
+# ShrivenQ Pre-commit Hook for Documentation Validation
+set -euo pipefail
+
+# Check if any documentation files changed
+if git diff --cached --name-only | grep -E '\.(md|rst)$' > /dev/null; then
+    echo "📚 Documentation changes detected, running validation..."
+    
+    # Run documentation validation
+    if ! ./scripts/build/validate_documentation.sh; then
+        echo "❌ Documentation validation failed. Please fix issues before committing."
+        echo ""
+        echo "💡 Tips:"
+        echo "  - Check for broken links in your markdown files"
+        echo "  - Ensure all referenced files exist"
+        echo "  - Run: cargo run --bin doc-tracker validate --docs-path docs --verbose"
+        echo "  - Fix issues and try committing again"
+        exit 1
+    fi
+    
+    # Stage any auto-generated files
+    if [[ -f "docs/.metadata/doc-graph.json" ]]; then
+        git add docs/.metadata/doc-graph.json
+    fi
+    
+    if [[ -f "docs/metrics/documentation-health.md" ]]; then
+        git add docs/metrics/documentation-health.md
+    fi
+    
+    echo "✅ Documentation validation passed"
+fi
+
+# Additional checks for other file types
+if git diff --cached --name-only | grep -E '\.rs$' > /dev/null; then
+    echo "🦀 Rust code changes detected"
+    
+    # Check for basic formatting (if rustfmt is available)
+    if command -v rustfmt &> /dev/null; then
+        echo "🎨 Checking Rust code formatting..."
+        if ! cargo fmt -- --check; then
+            echo "⚠️  Code is not properly formatted. Run 'cargo fmt' to fix."
+            # Don't fail the commit for formatting, just warn
+        fi
+    fi
+fi
+
+# Check for common issues in any changed files
+changed_files=$(git diff --cached --name-only)
+
+if [[ -n "$changed_files" ]]; then
+    # Check for debug prints or temporary code
+    if echo "$changed_files" | xargs grep -l "println!\|dbg!\|TODO\|FIXME" 2>/dev/null; then
+        echo "⚠️  Found debug prints or TODO markers in staged files:"
+        echo "$changed_files" | xargs grep -Hn "println!\|dbg!\|TODO\|FIXME" 2>/dev/null || true
+        echo "Consider removing debug code before committing."
+        # Don't fail commit, just warn
+    fi
+fi
+
+echo "🚀 Pre-commit validation completed"

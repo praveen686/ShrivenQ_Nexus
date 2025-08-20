@@ -7,6 +7,8 @@
 //! - Multi-asset class support
 //! - Local exchange simulation
 
+pub mod core;
+
 use anyhow::Result;
 use clap::{Parser, Subcommand};
 use tracing::{info, warn};
@@ -90,7 +92,7 @@ async fn main() -> Result<()> {
         .with_env_filter(
             tracing_subscriber::EnvFilter::from_default_env()
                 .add_directive(cli.log_level.parse()?)
-                .add_directive("shriven_q=info".parse()?)
+                .add_directive("shriven_q=info".parse()?),
         )
         .with_target(false)
         .with_thread_ids(true)
@@ -99,12 +101,15 @@ async fn main() -> Result<()> {
 
     // ASCII Art Banner
     print_banner();
-    
+
     // Show system information
     info!("🚀 ShrivenQ Nexus - Ultra-Low Latency Trading Platform");
     info!("├─ Mode: {}", cli.mode);
     info!("├─ Config: {}", cli.config);
-    info!("├─ GPU Acceleration: {}", if cli.gpu { "ENABLED" } else { "DISABLED" });
+    info!(
+        "├─ GPU Acceleration: {}",
+        if cli.gpu { "ENABLED" } else { "DISABLED" }
+    );
     info!("└─ Version: {}", env!("CARGO_PKG_VERSION"));
 
     // Check system capabilities
@@ -130,7 +135,8 @@ async fn main() -> Result<()> {
 }
 
 fn print_banner() {
-    println!(r#"
+    println!(
+        r#"
 ╔═══════════════════════════════════════════════════════════════════════════╗
 ║                                                                           ║
 ║   ███████╗██╗  ██╗██████╗ ██╗██╗   ██╗███████╗███╗   ██╗ ██████╗          ║
@@ -146,7 +152,8 @@ fn print_banner() {
 ║                                                                           ║
 ║    ⚡ < 100μs Latency    🔥 GPU Accelerated    🎯 Multi-Asset    🏪 Local Sim    ║
 ╚═══════════════════════════════════════════════════════════════════════════╝
-    "#);
+    "#
+    );
 }
 
 async fn check_system_capabilities(gpu_enabled: bool) -> Result<()> {
@@ -154,7 +161,7 @@ async fn check_system_capabilities(gpu_enabled: bool) -> Result<()> {
 
     // Check CPU features
     info!("├─ CPU: {}", std::env::consts::ARCH);
-    
+
     // Check available memory
     // TODO: Implement proper memory check
     info!("├─ Memory: Checking available RAM...");
@@ -187,16 +194,19 @@ async fn check_gpu_availability() -> Result<()> {
 }
 
 async fn start_trading_engine(
-    mode: ExecutionMode, 
-    config_path: &str, 
-    port: u16, 
-    gpu_enabled: bool
+    mode: ExecutionMode,
+    config_path: &str,
+    port: u16,
+    gpu_enabled: bool,
 ) -> Result<()> {
     info!("🚀 Starting ShrivenQ Nexus Trading Engine");
     info!("├─ Execution Mode: {}", mode);
     info!("├─ Configuration: {}", config_path);
     info!("├─ Port: {}", port);
-    info!("└─ GPU Acceleration: {}", if gpu_enabled { "ON" } else { "OFF" });
+    info!(
+        "└─ GPU Acceleration: {}",
+        if gpu_enabled { "ON" } else { "OFF" }
+    );
 
     // TODO: Initialize core systems
     initialize_core_systems(mode, config_path, gpu_enabled).await?;
@@ -225,7 +235,7 @@ async fn start_trading_engine(
     // Keep the application running
     info!("✅ ShrivenQ Nexus is running on port {}", port);
     info!("Press Ctrl+C to stop...");
-    
+
     // TODO: Implement proper signal handling and graceful shutdown
     tokio::signal::ctrl_c().await?;
     info!("🛑 Shutting down ShrivenQ Nexus...");
@@ -234,26 +244,27 @@ async fn start_trading_engine(
 }
 
 async fn initialize_core_systems(
-    mode: ExecutionMode, 
-    config_path: &str, 
-    gpu_enabled: bool
+    mode: ExecutionMode,
+    config_path: &str,
+    gpu_enabled: bool,
 ) -> Result<()> {
     info!("⚙️  Initializing core systems...");
 
     // TODO: Load configuration
     info!("├─ Loading configuration from: {}", config_path);
-    
-    // TODO: Initialize memory pools
+
+    // Initialize memory pools
     info!("├─ Initializing lock-free memory pools...");
-    
+    initialize_memory_system().await?;
+
     // TODO: Initialize networking
     info!("├─ Setting up ultra-low latency networking...");
-    
+
     // TODO: Initialize GPU resources if enabled
     if gpu_enabled {
         info!("├─ Initializing GPU compute resources...");
     }
-    
+
     // TODO: Initialize execution mode specific systems
     match mode {
         ExecutionMode::Backtest => {
@@ -276,7 +287,10 @@ async fn initialize_core_systems(
 }
 
 async fn run_benchmarks(iterations: u32) -> Result<()> {
-    info!("📊 Running ShrivenQ performance benchmarks ({} iterations)", iterations);
+    info!(
+        "📊 Running ShrivenQ performance benchmarks ({} iterations)",
+        iterations
+    );
 
     // TODO: Implement comprehensive benchmarks
     info!("├─ Order book insertion latency...");
@@ -308,14 +322,96 @@ async fn validate_configuration(config_path: &str) -> Result<()> {
     Ok(())
 }
 
+use crate::core::memory::{AllocError, MemoryBackend, SafePoolConfig};
+use once_cell::sync::OnceCell;
+use std::sync::Arc;
+
+#[derive(Debug)]
+pub struct MemorySystem {
+    pub backend: Arc<MemoryBackend>,
+}
+
+static MEMORY_SYSTEM: OnceCell<MemorySystem> = OnceCell::new();
+
+pub fn memory_system() -> Result<&'static MemorySystem, AllocError> {
+    MEMORY_SYSTEM.get().ok_or(AllocError::NotInitialized)
+}
+
+async fn initialize_memory_system() -> Result<()> {
+    // Choose memory backend based on feature flags
+    let backend = if cfg!(feature = "hft-unsafe") {
+        // Use high-performance lock-free pool when hft-unsafe is enabled
+        #[cfg(feature = "hft-unsafe")]
+        {
+            use crate::core::memory::PoolConfig;
+            let config = PoolConfig {
+                chunk_size: 4096,
+                initial_chunks: 1024,
+                max_chunks: 100_000,
+                alignment: 64,
+                zero_on_dealloc: false,
+                thread_cache_size: 32,
+            };
+            let backend = MemoryBackend::lock_free(config)?;
+            info!("   ├─ Lock-free memory pool initialized (HIGH PERFORMANCE MODE)");
+            backend
+        }
+        #[cfg(not(feature = "hft-unsafe"))]
+        unreachable!()
+    } else {
+        // Default to safe memory pool
+        let config = SafePoolConfig {
+            chunk_size: 4096,
+            initial_chunks: 1024,
+            max_chunks: 100_000,
+            zero_on_dealloc: false,
+        };
+        let backend = MemoryBackend::safe(config)?;
+        info!("   ├─ Safe memory pool initialized (SAFE MODE)");
+        backend
+    };
+
+    info!("   ├─ Memory backend: {}", backend.backend_type());
+    info!(
+        "   └─ Unsafe code: {}",
+        if backend.is_unsafe() {
+            "YES (optimized)"
+        } else {
+            "NO (safe)"
+        }
+    );
+
+    // Store the memory system globally
+    let memory_system = MemorySystem {
+        backend: Arc::new(backend),
+    };
+
+    MEMORY_SYSTEM
+        .set(memory_system)
+        .map_err(|_| AllocError::AlreadyInitialized)?;
+
+    Ok(())
+}
+
 async fn show_system_info() -> Result<()> {
     info!("ℹ️  ShrivenQ Nexus System Information");
 
     // System information
-    info!("├─ Platform: {} {}", std::env::consts::OS, std::env::consts::ARCH);
+    info!(
+        "├─ Platform: {} {}",
+        std::env::consts::OS,
+        std::env::consts::ARCH
+    );
     info!("├─ Rust Version: {}", env!("CARGO_PKG_RUST_VERSION"));
-    info!("├─ Build Profile: {}", if cfg!(debug_assertions) { "debug" } else { "release" });
-    
+    info!(
+        "├─ Build Profile: {}",
+        if cfg!(debug_assertions) {
+            "debug"
+        } else {
+            "release"
+        }
+    );
+
     // Feature flags
     let mut features = Vec::new();
     if cfg!(feature = "gpu-acceleration") {
@@ -330,9 +426,9 @@ async fn show_system_info() -> Result<()> {
     if cfg!(feature = "binance-integration") {
         features.push("Binance");
     }
-    
+
     info!("├─ Enabled Features: {}", features.join(", "));
-    
+
     // Performance capabilities
     info!("├─ Expected Latency: < 100 microseconds");
     info!("├─ Max Throughput: 1M+ orders/second");

@@ -1,0 +1,1042 @@
+{
+  "references": [
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 17,
+      "context": "- \"Create a feature flag called `hft-unsafe` that enables these unsafe optimizations\"",
+      "anchor": "hft-unsafe"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 19,
+      "context": "- \"When users explicitly enable `hft-unsafe`, they opt into the performance benefits\"",
+      "anchor": "hft-unsafe"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 22,
+      "context": "- Added `hft-unsafe` feature to Cargo.toml",
+      "anchor": "hft-unsafe"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 203,
+      "context": "- [ ] **Feature gating**: Code is behind `hft-unsafe` feature flag",
+      "anchor": "hft-unsafe"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "performance-target:500ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 224,
+      "context": "| Memory allocation | `Vec::with_capacity()` ~500ns | Lock-free pool ~50ns | 10x improvement critical for HFT |",
+      "anchor": "500ns"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "performance-target:50ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 224,
+      "context": "| Memory allocation | `Vec::with_capacity()` ~500ns | Lock-free pool ~50ns | 10x improvement critical for HFT |",
+      "anchor": "50ns"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "performance-target:100ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 225,
+      "context": "| NUMA allocation | Standard allocator | NUMA-aware ~100ns | Memory locality for sub-microsecond latency |",
+      "anchor": "100ns"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "performance-target:20ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 226,
+      "context": "| Object pooling | `VecDeque` with mutex | Slab allocator ~20ns | Zero allocation during trading hours |",
+      "anchor": "20ns"
+    },
+    {
+      "source_file": "docs/standards/UNSAFE_CODE_STANDARDS.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 296,
+      "context": "The implementation fully addresses the CTO's requirements while maintaining the flexibility to achieve the sub-100μs latency targets required for competitive high-frequency trading.",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#architecture-principles",
+      "reference_type": "DirectLink",
+      "line_number": 13,
+      "context": "1. [Architecture Principles](#architecture-principles)",
+      "anchor": "architecture-principles"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#safe-vs-unsafe-system-standards",
+      "reference_type": "DirectLink",
+      "line_number": 14,
+      "context": "2. [Safe vs Unsafe System Standards](#safe-vs-unsafe-system-standards)",
+      "anchor": "safe-vs-unsafe-system-standards"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#code-quality-standards",
+      "reference_type": "DirectLink",
+      "line_number": 15,
+      "context": "3. [Code Quality Standards](#code-quality-standards)",
+      "anchor": "code-quality-standards"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#build-system-standards",
+      "reference_type": "DirectLink",
+      "line_number": 16,
+      "context": "4. [Build System Standards](#build-system-standards)",
+      "anchor": "build-system-standards"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#performance-standards",
+      "reference_type": "DirectLink",
+      "line_number": 17,
+      "context": "5. [Performance Standards](#performance-standards)",
+      "anchor": "performance-standards"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#safety-and-testing-standards",
+      "reference_type": "DirectLink",
+      "line_number": 18,
+      "context": "6. [Safety and Testing Standards](#safety-and-testing-standards)",
+      "anchor": "safety-and-testing-standards"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#naming-conventions",
+      "reference_type": "DirectLink",
+      "line_number": 19,
+      "context": "7. [Naming Conventions](#naming-conventions)",
+      "anchor": "naming-conventions"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#documentation-standards",
+      "reference_type": "DirectLink",
+      "line_number": 20,
+      "context": "8. [Documentation Standards](#documentation-standards)",
+      "anchor": "documentation-standards"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#error-handling-standards",
+      "reference_type": "DirectLink",
+      "line_number": 21,
+      "context": "9. [Error Handling Standards](#error-handling-standards)",
+      "anchor": "error-handling-standards"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "#review-and-compliance",
+      "reference_type": "DirectLink",
+      "line_number": 22,
+      "context": "10. [Review and Compliance](#review-and-compliance)",
+      "anchor": "review-and-compliance"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 1ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 77,
+      "context": "- Performance targets: < 1ms latency (acceptable for most retail trading)",
+      "anchor": "< 1ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 106,
+      "context": "- Order-to-exchange latency: < 100μs",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 107,
+      "context": "- Market data processing: < 10μs",
+      "anchor": "< 10μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 50μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 108,
+      "context": "- Risk calculations: < 50μs",
+      "anchor": "< 50μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 1μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 130,
+      "context": "    /// Guaranteed O(1) insertion with < 1μs latency on modern hardware",
+      "anchor": "< 1μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 1ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 633,
+      "context": "| Order Entry | < 1ms | < 100μs | Hardware timestamping |",
+      "anchor": "< 1ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 633,
+      "context": "| Order Entry | < 1ms | < 100μs | Hardware timestamping |",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 5ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 634,
+      "context": "| Market Data Processing | < 5ms | < 10μs | End-to-end latency |",
+      "anchor": "< 5ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 634,
+      "context": "| Market Data Processing | < 5ms | < 10μs | End-to-end latency |",
+      "anchor": "< 10μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 10ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 635,
+      "context": "| Risk Calculation | < 10ms | < 50μs | Function-level timing |",
+      "anchor": "< 10ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 50μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 635,
+      "context": "| Risk Calculation | < 10ms | < 50μs | Function-level timing |",
+      "anchor": "< 50μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 50ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 636,
+      "context": "| Database Operations | < 50ms | < 1ms | Query performance logs |",
+      "anchor": "< 50ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 1ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 636,
+      "context": "| Database Operations | < 50ms | < 1ms | Query performance logs |",
+      "anchor": "< 1ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 100ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 637,
+      "context": "| Network Round-trip | < 100ms | < 10ms | Network monitoring |",
+      "anchor": "< 100ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 10ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 637,
+      "context": "| Network Round-trip | < 100ms | < 10ms | Network monitoring |",
+      "anchor": "< 10ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 641,
+      "context": "Market Data Reception:          10 μs",
+      "anchor": "10μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:5μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 642,
+      "context": "Order Book Update:              5 μs  ",
+      "anchor": "5μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:20μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 643,
+      "context": "Signal Generation:              20 μs",
+      "anchor": "20μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:5μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 644,
+      "context": "Risk Check:                     5 μs",
+      "anchor": "5μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:2μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 645,
+      "context": "Order Creation:                 2 μs",
+      "anchor": "2μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:50μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 646,
+      "context": "Order Transmission:             50 μs",
+      "anchor": "50μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:92μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 648,
+      "context": "TOTAL:                         92 μs (< 100 μs target)",
+      "anchor": "92μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 648,
+      "context": "TOTAL:                         92 μs (< 100 μs target)",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 672,
+      "context": "                \"Order execution exceeded 100μs target\"",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 781,
+      "context": "                \"Order execution took {:?}, exceeds 100μs limit\", latency);",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 810,
+      "context": "- [ ] **Feature gating**: Code is behind `hft-unsafe` feature flag",
+      "anchor": "hft-unsafe"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:500ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 864,
+      "context": "| Memory allocation | `Vec::with_capacity()` ~500ns | Lock-free pool ~50ns | 10x improvement critical for HFT |",
+      "anchor": "500ns"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:50ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 864,
+      "context": "| Memory allocation | `Vec::with_capacity()` ~500ns | Lock-free pool ~50ns | 10x improvement critical for HFT |",
+      "anchor": "50ns"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:100ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 865,
+      "context": "| NUMA allocation | Standard allocator | NUMA-aware ~100ns | Memory locality for sub-microsecond latency |",
+      "anchor": "100ns"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:20ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 866,
+      "context": "| Object pooling | `VecDeque` with mutex | Slab allocator ~20ns | Zero allocation during trading hours |",
+      "anchor": "20ns"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:1ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 1064,
+      "context": "/// - Safe mode: Uses BTreeMap with ~1ms latency, suitable for retail trading",
+      "anchor": "1ms"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:<10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 1065,
+      "context": "/// - Unsafe mode: Uses lock-free structures with <10μs latency for HFT",
+      "anchor": "<10μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 1075,
+      "context": "/// When using unsafe mode (`hft-unsafe` feature):",
+      "anchor": "hft-unsafe"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:< 1μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 1129,
+      "context": "/// - Insertion time: < 1μs on modern hardware (Intel Xeon 3.2GHz)",
+      "anchor": "< 1μs"
+    },
+    {
+      "source_file": "docs/standards/DEVELOPMENT_STANDARDS.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 1507,
+      "context": "            \"Average order execution latency {} exceeds 100μs limit\",",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/architecture/VISION.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 527,
+      "context": "- **Sub-100μs Latency**: Faster than 99% of retail platforms",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/architecture/VISION.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 549,
+      "context": "- **Latency**: < 100μs order-to-exchange (vs industry 1-10ms)",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/architecture/VISION.md",
+      "target_path": "performance-target:10ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 549,
+      "context": "- **Latency**: < 100μs order-to-exchange (vs industry 1-10ms)",
+      "anchor": "10ms"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 4,
+      "context": "ShrivenQ is an ultra-low latency trading platform designed for **sub-100μs order execution**. This document reflects the ACTUAL architecture as implemented, with a pragmatic roadmap for expansion.",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:< 1μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 84,
+      "context": "- Allocation latency: < 1μs (measured)",
+      "anchor": "< 1μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:< 5μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 113,
+      "context": "   - Pre-trade risk checks < 5μs",
+      "anchor": "< 5μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:<100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 171,
+      "context": "- **Prove the core** - Get <100μs first, then add features",
+      "anchor": "<100μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 179,
+      "context": "Market Data Reception:          10 μs",
+      "anchor": "10μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:5μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 180,
+      "context": "Order Book Update:              5 μs",
+      "anchor": "5μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:20μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 181,
+      "context": "Signal Generation:              20 μs",
+      "anchor": "20μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:5μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 182,
+      "context": "Risk Check:                     5 μs",
+      "anchor": "5μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:2μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 183,
+      "context": "Order Creation:                 2 μs",
+      "anchor": "2μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:50μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 184,
+      "context": "Order Transmission:             50 μs",
+      "anchor": "50μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:92μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 186,
+      "context": "TOTAL:                         92 μs (< 100 μs target)",
+      "anchor": "92μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 186,
+      "context": "TOTAL:                         92 μs (< 100 μs target)",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/architecture/IMPLEMENTATION.md",
+      "target_path": "performance-target:<100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 222,
+      "context": "The path to <100μs is through simplicity, not complexity.",
+      "anchor": "<100μs"
+    },
+    {
+      "source_file": "docs/architecture/SHRIVENQUANT_LEARNINGS.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 426,
+      "context": "- **Latency**: Order-to-exchange < 100μs",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 5,
+      "context": "This directory contains the comprehensive architectural documentation for ShrivenQ, an ultra-low latency quantitative trading platform. The architecture is designed to achieve sub-100μs order execution latency while maintaining institutional-grade reliability.",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "IMPLEMENTATION.md",
+      "reference_type": "DirectLink",
+      "line_number": 9,
+      "context": "### 📊 [Current Implementation](IMPLEMENTATION.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 100ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 19,
+      "context": "- Memory allocation: < 100ns",
+      "anchor": "< 100ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 20,
+      "context": "- Lock-free operations: < 10μs",
+      "anchor": "< 10μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "VISION.md",
+      "reference_type": "DirectLink",
+      "line_number": 24,
+      "context": "### 🚀 [Vision & Roadmap](VISION.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 28,
+      "context": "- Sub-100μs order-to-exchange latency targets",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "SHRIVENQUANT_LEARNINGS.md",
+      "reference_type": "DirectLink",
+      "line_number": 40,
+      "context": "### 📚 [ShrivenQuant Learnings](SHRIVENQUANT_LEARNINGS.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 92,
+      "context": "- Sub-100μs end-to-end latency",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 100ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 102,
+      "context": "| Memory allocation | < 100ns | 92ns | ✅ Met |",
+      "anchor": "< 100ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:92ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 102,
+      "context": "| Memory allocation | < 100ns | 92ns | ✅ Met |",
+      "anchor": "92ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 1μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 103,
+      "context": "| Lock-free queue ops | < 1μs | 850ns | ✅ Met |",
+      "anchor": "< 1μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:850ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 103,
+      "context": "| Lock-free queue ops | < 1μs | 850ns | ✅ Met |",
+      "anchor": "850ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 200ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 104,
+      "context": "| NUMA allocation | < 200ns | 180ns | ✅ Met |",
+      "anchor": "< 200ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:180ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 104,
+      "context": "| NUMA allocation | < 200ns | 180ns | ✅ Met |",
+      "anchor": "180ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 50ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 105,
+      "context": "| Hazard pointer ops | < 50ns | 45ns | ✅ Met |",
+      "anchor": "< 50ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:45ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 105,
+      "context": "| Hazard pointer ops | < 50ns | 45ns | ✅ Met |",
+      "anchor": "45ns"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 110,
+      "context": "| Order to Exchange | < 100μs | Critical | Phase 2 |",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 111,
+      "context": "| Market data processing | < 10μs | High | Phase 2 |",
+      "anchor": "< 10μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 50μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 112,
+      "context": "| Risk calculation | < 50μs | High | Phase 3 |",
+      "anchor": "< 50μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "performance-target:< 5μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 113,
+      "context": "| GPU risk calc | < 5μs | Medium | Phase 3 |",
+      "anchor": "< 5μs"
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "../standards/DEVELOPMENT_STANDARDS.md",
+      "reference_type": "DirectLink",
+      "line_number": 117,
+      "context": "- [Development Standards](../standards/DEVELOPMENT_STANDARDS.md) - Coding and quality standards",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "../standards/UNSAFE_CODE_STANDARDS.md",
+      "reference_type": "DirectLink",
+      "line_number": 118,
+      "context": "- [Unsafe Code Standards](../standards/UNSAFE_CODE_STANDARDS.md) - Performance-critical code guidelines",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/architecture/README.md",
+      "target_path": "../standards/NAMING_CONVENTIONS.md",
+      "reference_type": "DirectLink",
+      "line_number": 119,
+      "context": "- [Naming Conventions](../standards/NAMING_CONVENTIONS.md) - Consistent naming across the codebase",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 11,
+      "context": "- `performance-target:100μs`: 8 references",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:< 100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 12,
+      "context": "- `performance-target:< 100μs`: 6 references",
+      "anchor": "< 100μs"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:5μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 13,
+      "context": "- `performance-target:5μs`: 4 references",
+      "anchor": "5μs"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:< 1ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 14,
+      "context": "- `performance-target:< 1ms`: 3 references",
+      "anchor": "< 1ms"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:< 1μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 15,
+      "context": "- `performance-target:< 1μs`: 3 references",
+      "anchor": "< 1μs"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:50μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 16,
+      "context": "- `performance-target:50μs`: 2 references",
+      "anchor": "50μs"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:500ns",
+      "reference_type": "PerformanceMetric",
+      "line_number": 17,
+      "context": "- `performance-target:500ns`: 2 references",
+      "anchor": "500ns"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:10μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 18,
+      "context": "- `performance-target:10μs`: 2 references",
+      "anchor": "10μs"
+    },
+    {
+      "source_file": "docs/metrics/documentation-health.md",
+      "target_path": "performance-target:< 10ms",
+      "reference_type": "PerformanceMetric",
+      "line_number": 19,
+      "context": "- `performance-target:< 10ms`: 2 references",
+      "anchor": "< 10ms"
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "architecture/VISION.md",
+      "reference_type": "DirectLink",
+      "line_number": 11,
+      "context": "#### [Vision](architecture/VISION.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 12,
+      "context": "Ultimate vision document for ShrivenQ as the world's most advanced ultra-low latency trading platform, covering comprehensive multi-asset trading capabilities, GPU acceleration, and sub-100μs execution targets.",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "architecture/IMPLEMENTATION.md",
+      "reference_type": "DirectLink",
+      "line_number": 21,
+      "context": "#### [Implementation Architecture](architecture/IMPLEMENTATION.md) ",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "performance-target:100μs",
+      "reference_type": "PerformanceMetric",
+      "line_number": 22,
+      "context": "Production-ready architecture documentation reflecting the ACTUAL implemented system with pragmatic roadmap for expansion and sub-100μs order execution targets.",
+      "anchor": "100μs"
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "architecture/SHRIVENQUANT_LEARNINGS.md",
+      "reference_type": "DirectLink",
+      "line_number": 31,
+      "context": "#### [ShrivenQuant Learnings](architecture/SHRIVENQUANT_LEARNINGS.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "standards/DEVELOPMENT_STANDARDS.md",
+      "reference_type": "DirectLink",
+      "line_number": 43,
+      "context": "#### [Development Standards](standards/DEVELOPMENT_STANDARDS.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "standards/NAMING_CONVENTIONS.md",
+      "reference_type": "DirectLink",
+      "line_number": 55,
+      "context": "#### [Naming Conventions](standards/NAMING_CONVENTIONS.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "standards/DEVELOPMENT_STANDARDS.md",
+      "reference_type": "DirectLink",
+      "line_number": 67,
+      "context": "#### [Comprehensive Development Standards](standards/DEVELOPMENT_STANDARDS.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "standards/UNSAFE_CODE_STANDARDS.md",
+      "reference_type": "DirectLink",
+      "line_number": 78,
+      "context": "#### [Unsafe Code Standards](standards/UNSAFE_CODE_STANDARDS.md)",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 83,
+      "context": "- Feature-gated unsafe architecture (`hft-unsafe` flag) enforcement",
+      "anchor": "hft-unsafe"
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "metrics/documentation-health.md",
+      "reference_type": "DirectLink",
+      "line_number": 92,
+      "context": "For current documentation metrics and health status, see [Documentation Health](metrics/documentation-health.md).",
+      "anchor": null
+    },
+    {
+      "source_file": "docs/README.md",
+      "target_path": "feature-flag:hft-unsafe",
+      "reference_type": "FeatureFlag",
+      "line_number": 114,
+      "context": "1. **Safe by Default**: All unsafe code is feature-gated behind `hft-unsafe`",
+      "anchor": "hft-unsafe"
+    }
+  ],
+  "files": {
+    "docs/standards/DEVELOPMENT_STANDARDS.md": {
+      "title": "ShrivenQ Development Standards",
+      "last_modified": "2025-08-20T15:21:22.713454173+00:00",
+      "word_count": 6133,
+      "reference_count": 10,
+      "checksum": "6c50164ccb2af691"
+    },
+    "docs/architecture/README.md": {
+      "title": "ShrivenQ Architecture Documentation",
+      "last_modified": "2025-08-20T15:21:26.746943770+00:00",
+      "word_count": 666,
+      "reference_count": 6,
+      "checksum": "777a849f2cfdf93f"
+    },
+    "docs/architecture/IMPLEMENTATION.md": {
+      "title": "🚀 ShrivenQ Architecture - Production Reality",
+      "last_modified": "2025-08-20T15:21:25.975708809+00:00",
+      "word_count": 897,
+      "reference_count": 0,
+      "checksum": "eda162686dd4d1a6"
+    },
+    "docs/README.md": {
+      "title": "ShrivenQ Documentation",
+      "last_modified": "2025-08-20T15:21:26.942148919+00:00",
+      "word_count": 859,
+      "reference_count": 8,
+      "checksum": "2812248bd70027ed"
+    },
+    "docs/standards/NAMING_CONVENTIONS.md": {
+      "title": "🎯 **SHRIVENQ NAMING CONVENTION**",
+      "last_modified": "2025-08-20T15:21:24.701371510+00:00",
+      "word_count": 2236,
+      "reference_count": 0,
+      "checksum": "88e96c64d0719f3"
+    },
+    "docs/standards/UNSAFE_CODE_STANDARDS.md": {
+      "title": "ShrivenQ Unsafe Code Guidelines and Architecture",
+      "last_modified": "2025-08-20T15:21:22.393601223+00:00",
+      "word_count": 1255,
+      "reference_count": 0,
+      "checksum": "9bf7b472979b8f38"
+    },
+    "docs/metrics/documentation-health.md": {
+      "title": "Documentation Metrics",
+      "last_modified": "2025-08-20T15:21:26.911946130+00:00",
+      "word_count": 80,
+      "reference_count": 0,
+      "checksum": "ac9c8974b1fe907a"
+    },
+    "docs/architecture/SHRIVENQUANT_LEARNINGS.md": {
+      "title": "📚 **SHRIVENQUANT LEARNINGS & BEST PRACTICES**",
+      "last_modified": "2025-08-20T15:21:26.232417373+00:00",
+      "word_count": 1585,
+      "reference_count": 0,
+      "checksum": "8d3f0a1b86787e6"
+    },
+    "docs/architecture/VISION.md": {
+      "title": "🚀 **SHRIVENQUANT: ULTIMATE ULTRA-LOW LATENCY TRADING ARCHITECTURE**",
+      "last_modified": "2025-08-20T15:21:25.329806907+00:00",
+      "word_count": 2884,
+      "reference_count": 0,
+      "checksum": "7eb0fa3ce9319df3"
+    }
+  },
+  "broken_links": [],
+  "metrics": {
+    "total_files": 9,
+    "total_references": 115,
+    "broken_references": 0,
+    "most_referenced_files": [
+      [
+        "performance-target:100μs",
+        12
+      ],
+      [
+        "feature-flag:hft-unsafe",
+        8
+      ],
+      [
+        "performance-target:< 100μs",
+        8
+      ],
+      [
+        "performance-target:5μs",
+        5
+      ],
+      [
+        "performance-target:< 1μs",
+        5
+      ],
+      [
+        "performance-target:< 1ms",
+        4
+      ],
+      [
+        "performance-target:< 10μs",
+        4
+      ],
+      [
+        "performance-target:10μs",
+        3
+      ],
+      [
+        "performance-target:< 10ms",
+        3
+      ],
+      [
+        "performance-target:< 50μs",
+        3
+      ]
+    ],
+    "reference_type_counts": {
+      "FeatureFlag": 8,
+      "PerformanceMetric": 83,
+      "DirectLink": 24
+    }
+  }
+}
