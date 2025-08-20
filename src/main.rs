@@ -313,7 +313,7 @@ async fn show_system_info() -> Result<()> {
 
     // System information
     info!("├─ Platform: {} {}", std::env::consts::OS, std::env::consts::ARCH);
-    info!("├─ Rust Version: {}", env!("RUSTC_VERSION"));
+    info!("├─ Rust Version: {}", env!("CARGO_PKG_RUST_VERSION"));
     info!("├─ Build Profile: {}", if cfg!(debug_assertions) { "debug" } else { "release" });
     
     // Feature flags

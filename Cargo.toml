@@ -2,6 +2,7 @@
 name = "shriven-q"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.85"
 authors = ["Praveen <praveen686@gmail.com>"]
 description = "Ultra-low latency quantitative trading platform with GPU acceleration"
 license = "MIT"
@@ -12,19 +13,19 @@ keywords = ["trading", "quantitative", "gpu", "low-latency", "finance"]
 categories = ["finance", "algorithms", "science", "concurrency"]
 readme = "README.md"
 
-[workspace]
-members = [
-    "shriven-core",
-    "shriven-gpu", 
-    "shriven-engines",
-    "shriven-analytics",
-    "shriven-infrastructure",
-    "shriven-interfaces",
-    "shriven-connectors",
-    "shriven-testing",
-]
+# [workspace]
+# members = [
+#     "shriven-core",
+#     "shriven-gpu", 
+#     "shriven-engines",
+#     "shriven-analytics",
+#     "shriven-infrastructure",
+#     "shriven-interfaces",
+#     "shriven-connectors",
+#     "shriven-testing",
+# ]
 
-[workspace.dependencies]
+[dependencies]
 # Performance-critical dependencies
 tokio = { version = "1.35", features = ["full", "tracing"] }
 crossbeam = "0.8"
@@ -34,7 +35,7 @@ smallvec = { version = "1.11", features = ["serde"] }
 arrayvec = "0.7"
 
 # Async and networking  
-tonic = { version = "0.10", features = ["tls", "compression"] }
+tonic = { version = "0.10", features = ["tls"] }
 prost = "0.12"
 reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
 tokio-tungstenite = { version = "0.20", features = ["rustls-tls-native-roots"] }
@@ -68,29 +69,28 @@ toml = "0.8"
 clap = { version = "4.4", features = ["derive"] }
 
 # Database and storage
-sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
-redis = { version = "0.24", features = ["tokio-comp", "connection-manager"] }
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
+redis = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
 
 # GPU computing (optional)
 cudarc = { version = "0.10", optional = true }
-cuda-rs = { version = "0.3", optional = true }
 
-# High-performance allocators
+# High-performance allocators (optional)
 mimalloc = { version = "0.1", optional = true }
 jemalloc = { version = "0.5", package = "tikv-jemalloc-ctl", optional = true }
 
-# Development and testing
-criterion = { version = "0.5", features = ["html_reports"] }
-quickcheck = "1.0"
-quickcheck_macros = "1.0"
-proptest = "1.4"
+# Development and testing (optional)
+criterion = { version = "0.5", features = ["html_reports"], optional = true }
+quickcheck = { version = "1.0", optional = true }
+quickcheck_macros = { version = "1.0", optional = true }
+proptest = { version = "1.4", optional = true }
 
 [features]
 default = ["high-performance", "zerodha-integration"]
 
 # Performance features
 high-performance = ["mimalloc", "jemalloc"]
-gpu-acceleration = ["cudarc", "cuda-rs"]
+gpu-acceleration = ["cudarc"]
 simd = []
 
 # Exchange integrations
@@ -104,8 +104,8 @@ simulation = []
 paper-trading = []
 live-trading = []
 
-# Development features
-development-tools = ["tokio/console"]
+# Development features  
+development-tools = []
 profiling = ["criterion"]
 testing = ["quickcheck", "proptest"]
 
