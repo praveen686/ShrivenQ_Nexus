@@ -1,0 +1,156 @@
+[package]
+name = "shriven-q"
+version = "0.1.0"
+edition = "2024"
+authors = ["Praveen <praveen686@gmail.com>"]
+description = "Ultra-low latency quantitative trading platform with GPU acceleration"
+license = "MIT"
+repository = "https://github.com/praveen686/ShrivenQ_Nexus.git"
+homepage = "https://github.com/praveen686/ShrivenQ_Nexus"
+documentation = "https://github.com/praveen686/ShrivenQ_Nexus/docs"
+keywords = ["trading", "quantitative", "gpu", "low-latency", "finance"]
+categories = ["finance", "algorithms", "science", "concurrency"]
+readme = "README.md"
+
+[workspace]
+members = [
+    "shriven-core",
+    "shriven-gpu", 
+    "shriven-engines",
+    "shriven-analytics",
+    "shriven-infrastructure",
+    "shriven-interfaces",
+    "shriven-connectors",
+    "shriven-testing",
+]
+
+[workspace.dependencies]
+# Performance-critical dependencies
+tokio = { version = "1.35", features = ["full", "tracing"] }
+crossbeam = "0.8"
+parking_lot = "0.12"
+ahash = "0.8"
+smallvec = { version = "1.11", features = ["serde"] }
+arrayvec = "0.7"
+
+# Async and networking  
+tonic = { version = "0.10", features = ["tls", "compression"] }
+prost = "0.12"
+reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
+tokio-tungstenite = { version = "0.20", features = ["rustls-tls-native-roots"] }
+
+# Serialization and data
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+rmp-serde = "1.1"
+
+# Error handling and logging
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Numerical computing
+nalgebra = "0.32"
+ndarray = "0.15"
+statrs = "0.16"
+rand = "0.8"
+rand_distr = "0.4"
+
+# Time and dates
+chrono = { version = "0.4", features = ["serde"] }
+time = "0.3"
+
+# Configuration
+config = "0.13"
+toml = "0.8"
+clap = { version = "4.4", features = ["derive"] }
+
+# Database and storage
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
+redis = { version = "0.24", features = ["tokio-comp", "connection-manager"] }
+
+# GPU computing (optional)
+cudarc = { version = "0.10", optional = true }
+cuda-rs = { version = "0.3", optional = true }
+
+# High-performance allocators
+mimalloc = { version = "0.1", optional = true }
+jemalloc = { version = "0.5", package = "tikv-jemalloc-ctl", optional = true }
+
+# Development and testing
+criterion = { version = "0.5", features = ["html_reports"] }
+quickcheck = "1.0"
+quickcheck_macros = "1.0"
+proptest = "1.4"
+
+[features]
+default = ["high-performance", "zerodha-integration"]
+
+# Performance features
+high-performance = ["mimalloc", "jemalloc"]
+gpu-acceleration = ["cudarc", "cuda-rs"]
+simd = []
+
+# Exchange integrations
+zerodha-integration = []
+binance-integration = []
+bybit-integration = []
+
+# Execution modes
+backtesting = []
+simulation = []
+paper-trading = []
+live-trading = []
+
+# Development features
+development-tools = ["tokio/console"]
+profiling = ["criterion"]
+testing = ["quickcheck", "proptest"]
+
+[[bin]]
+name = "shriven-q"
+path = "src/main.rs"
+
+[[bin]]
+name = "shriven-backtest"
+path = "src/bin/backtest.rs"
+required-features = ["backtesting"]
+
+[[bin]]
+name = "shriven-benchmark"
+path = "src/bin/benchmark.rs"
+required-features = ["profiling"]
+
+[profile.release]
+opt-level = 3
+debug = false
+strip = true
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true
+strip = false
+
+[profile.bench]
+opt-level = 3
+debug = false
+lto = true
+codegen-units = 1
+
+[profile.dev]
+opt-level = 0
+debug = true
+overflow-checks = true
+
+# GPU-optimized profile
+[profile.gpu]
+inherits = "release"
+opt-level = 3
+debug = false
+lto = "fat"
+codegen-units = 1

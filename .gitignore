@@ -1,0 +1,61 @@
+# Rust
+/target/
+/Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# GPU compilation artifacts
+*.cubin
+*.ptx
+*.fatbin
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.out
+
+# Configuration files with secrets
+config/secrets/
+.env
+.env.local
+*.key
+*.pem
+
+# Data files
+data/
+cache/
+tmp/
+*.db
+*.sqlite
+
+# Performance and profiling
+*.prof
+callgrind.out.*
+perf.data*
+
+# Documentation build
+book/
+docs/_build/
+
+# Test artifacts
+test-results/
+coverage/
+
+# Backup files
+*.bak
+*.backup
+
+# Local development
+local/
+scratch/

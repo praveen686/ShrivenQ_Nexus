@@ -1,0 +1,159 @@
+# ShrivenQ Nexus - Default Configuration
+# Ultra-Low Latency Quantitative Trading Platform
+
+[system]
+# Core system settings
+log_level = "info"
+worker_threads = 16
+max_memory_pool_size = "1GB"
+numa_policy = "interleave"
+
+[performance]
+# Performance tuning
+target_latency_us = 100
+max_orders_per_second = 1000000
+enable_hardware_timestamps = true
+use_lock_free_structures = true
+cpu_affinity = [0, 1, 2, 3]  # Pin to specific CPU cores
+
+[gpu]
+# GPU acceleration settings
+enabled = false
+devices = [0]  # CUDA device IDs
+memory_pool_size = "512MB"
+compute_streams = 4
+enable_unified_memory = true
+
+[execution_modes]
+# Default execution mode configuration
+
+[execution_modes.backtest]
+default_start_date = "2024-01-01"
+default_end_date = "2024-12-31"
+data_source = "local"
+enable_slippage_model = true
+enable_market_impact = true
+
+[execution_modes.simulation]
+market_simulation = "local"
+latency_model = "realistic"
+slippage_model = "linear"
+market_impact_model = "sqrt"
+enable_order_book_simulation = true
+
+[execution_modes.paper]
+starting_capital = 100000.0
+enable_live_data = true
+risk_checks = true
+position_reporting = true
+
+[execution_modes.live]
+enable_pre_trade_risk = true
+enable_post_trade_risk = true
+max_daily_loss = 10000.0
+max_position_size = 100000.0
+enable_circuit_breakers = true
+
+[exchanges]
+# Exchange configuration
+
+[exchanges.zerodha]
+enabled = false
+api_key = ""  # Set via environment variable
+api_secret = ""  # Set via environment variable
+request_token = ""
+access_token = ""
+public_token = ""
+base_url = "https://api.kite.trade"
+websocket_url = "wss://ws.kite.trade"
+timeout_ms = 5000
+rate_limit = 10  # requests per second
+
+[exchanges.binance]
+enabled = false
+api_key = ""  # Set via environment variable
+api_secret = ""  # Set via environment variable
+base_url = "https://api.binance.com"
+websocket_url = "wss://stream.binance.com:9443"
+timeout_ms = 5000
+rate_limit = 1200  # requests per minute
+
+[exchanges.binance_futures]
+enabled = false
+api_key = ""  # Set via environment variable
+api_secret = ""  # Set via environment variable  
+base_url = "https://fapi.binance.com"
+websocket_url = "wss://fstream.binance.com"
+timeout_ms = 5000
+rate_limit = 2400  # requests per minute
+
+[risk_management]
+# Risk management settings
+enable_position_limits = true
+enable_loss_limits = true
+enable_concentration_limits = true
+max_portfolio_leverage = 3.0
+max_single_position_weight = 0.1
+var_confidence_level = 0.95
+var_time_horizon_days = 1
+
+[market_data]
+# Market data configuration
+buffer_size = 1000000
+enable_level2 = true
+enable_level3 = false  # Full order book depth
+enable_trade_data = true
+enable_ohlcv = true
+compression = "lz4"
+
+[portfolio]
+# Portfolio management
+base_currency = "USD"
+enable_multi_currency = true
+enable_real_time_pnl = true
+enable_attribution = true
+performance_benchmark = "SPY"
+
+[analytics]
+# Analytics engine configuration
+enable_gpu_acceleration = false
+enable_real_time_var = true
+enable_stress_testing = true
+enable_scenario_analysis = true
+monte_carlo_simulations = 100000
+
+[storage]
+# Data storage configuration
+time_series_db = "clickhouse"
+cache_db = "redis"
+config_db = "postgres"
+data_directory = "./data"
+enable_compression = true
+retention_days = 365
+
+[networking]
+# Network configuration
+api_port = 8080
+websocket_port = 8081
+grpc_port = 50051
+enable_tls = false
+enable_compression = true
+max_connections = 10000
+connection_timeout_ms = 30000
+
+[monitoring]
+# Monitoring and observability
+enable_metrics = true
+metrics_port = 9090
+enable_tracing = true
+enable_health_checks = true
+log_format = "json"
+log_rotation = "daily"
+
+[security]
+# Security settings
+enable_authentication = false
+enable_authorization = false
+jwt_secret = ""  # Set via environment variable
+session_timeout_minutes = 60
+enable_audit_log = true
